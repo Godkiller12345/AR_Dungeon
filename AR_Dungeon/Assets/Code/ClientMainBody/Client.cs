@@ -20,6 +20,9 @@ namespace Project1
         public static Socket UserSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         public static Socket ActionSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         public static Socket MapSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+        public static bool debug = true;
+
         public static void Main()
         {
             try
@@ -28,11 +31,39 @@ namespace Project1
                 ActionSocket.Connect(SERVER_ADDRESS, ACTION_PORT);
                 MapSocket.Connect(SERVER_ADDRESS, MAP_PORT);
 
+                //new process to catch action and map
                 Thread action = new Thread(new ThreadStart(CatchBroadcast.CatchAction));
                 action.Start();
                 Thread map = new Thread(new ThreadStart(CatchBroadcast.CatchMap));
                 map.Start();
 
+                //Read action and call correspond function
+                while (true)
+                {
+                    foreach (ActionType a in Actions)
+                    {
+                        switch (a.ActionID)
+                        {
+                            //action call by server
+                            //please put Action model in case 
+                            //ActionID is in ActionType
+                            case ActionType.MOVE:
+                                break;
+
+                            default:
+                                if (debug)
+                                {
+                                    Console.WriteLine("Error ActionID");
+                                }
+                                {
+                                    break;
+                                }
+                        }
+                    }
+                }
+
+                /*
+                 * test send
                 while (true)
                 {
                     int protacol = Convert.ToInt32(Console.ReadLine());
@@ -46,6 +77,7 @@ namespace Project1
                     UserSocket.Send(send);
 
                 }
+                */
             }
             catch(Exception e)
             {

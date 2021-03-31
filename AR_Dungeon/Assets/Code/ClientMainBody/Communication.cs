@@ -10,6 +10,7 @@ namespace Project1
     {
         public void Send (int protocal,byte[] data)
         {
+            //call this function to send things by UserSocket
             byte[] buf = new byte[data.Length + 4];
             Buffer.BlockCopy(JavaTransform.ToJavaByte(protocal), 0, buf, 0, 4);
             Buffer.BlockCopy(data, 0, buf, 4, data.Length);
@@ -18,6 +19,7 @@ namespace Project1
 
         public ReadType Read()
         {
+            //call this function to read things by UserSocket and will return call back information
             byte[] buf = new byte[1000];
             int length = Client.UserSocket.Receive(buf);
             int protocol = JavaTransform.ToINT(buf, 0);

@@ -11,6 +11,7 @@ namespace Project1
     {
         public static void CatchAction()
         {
+            // To catch Server Action list
             while (true)
             {
                 byte[] buf = new byte[1000];
@@ -34,8 +35,10 @@ namespace Project1
 
         public static void CatchMap()
         {
+            // To catch Server Map list
             while (true)
             {
+                Queue<MapType> map = new Queue<MapType>();
                 byte[] buf = new byte[1000];
                 int length = Client.MapSocket.Receive(buf);
                 for (int i = 0; i < length/MapType.MapTypeSize; i++)
@@ -51,9 +54,9 @@ namespace Project1
                     State = JavaTransform.ToINT(buf, start + 20);
                     Longitude = JavaTransform.ToDouble(buf, start + 24);
                     Latitude = JavaTransform.ToDouble(buf, start + 32);
-                    Client.Maps.Enqueue(new MapType(TypeID, BelongID, Level, HP, MP, State, Longitude, Latitude));
+                    map.Enqueue(new MapType(TypeID, BelongID, Level, HP, MP, State, Longitude, Latitude));
                 }
-                
+                Client.Maps = map;
             }
         }
     }

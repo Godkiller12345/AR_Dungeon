@@ -8,8 +8,10 @@ namespace Project1
 {
     public class MapType
     {
+        //MapType Data Size
         public const int MapTypeSize = 40; //total bytes
 
+        //MapType Data
         public int TypeID;     //like player, monster or ....
         public int BelongID;   //like PID, MID, IID....
         public int Level;

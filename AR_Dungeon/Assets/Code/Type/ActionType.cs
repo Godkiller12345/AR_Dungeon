@@ -8,7 +8,14 @@ namespace Project1
 {
     public class ActionType
     {
+        //Please write ActionID in here
+        public const int MOVE = 1;
+
+
+        //Action Data Size
         public const int ActionTypeSize = 28;
+
+        //Action Data
         public int ActionID;
         public int PlayID;
         public int TargetID;
